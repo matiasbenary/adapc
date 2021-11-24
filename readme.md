@@ -13,7 +13,7 @@ Si empezamos a probar y modificar cosas, sin tener muy en claro qué y por qué 
 
 ```javascript
 
-const vendedoras= ["Ada", "Grace", "Hedy", "Sheryl"],
+const vendedoras= ["Ada", "Grace", "Hedy", "Sheryl"]
 
 const ventas= [
   // tener en cuenta que Date guarda los meses del 0 (enero) al 11 (diciembre)
@@ -54,7 +54,7 @@ const ventas= [
   },
 ]
 
-const precios= [
+const componentes= [
   { componente: "Monitor GPRS 3000", precio: 200 },
   { componente: "Motherboard ASUS 1500", precio: 120 },
   { componente: "Monitor ASC 543", precio: 250 },
