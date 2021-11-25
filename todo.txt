@@ -1,6 +1,10 @@
 0. Hacer repositorio 
-1. Generar contenedores o tablas basicas todo html 
+1. Generar contenedores o tablas basicas todo html
 2. Generar estilos(opcional pero recomendable)
 3. Generar funcionalidades
   a. Modificadores del Dom
   b. Funciones logicas
+
+
+Tareas Faltantes:
+- Falta modal

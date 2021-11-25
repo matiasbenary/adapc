@@ -130,3 +130,4 @@ for(const nombre of nombres){
   }
   anterior = nombre
 }
+console.log("¡Frodo está en peligro!")
