@@ -39,20 +39,20 @@ const ventas= [
     fecha: new Date(2019, 0, 12),
     nombreVendedora: "Grace",
     sucursal: "Caballito",
-    componentes: ["Monitor GPRS 3000", "Motherboard ASUS 1200"],
+    componentes: ["Monitor GPRS 3000", "Motherboard ASUS 1200","Monitor GPRS 3000", "Motherboard ASUS 1500"],
   },
 ]
 
-const componentes= [
-  { componente: "Monitor GPRS 3000", precio: 200 },
-  { componente: "Motherboard ASUS 1500", precio: 120 },
-  { componente: "Monitor ASC 543", precio: 250 },
-  { componente: "Motherboard ASUS 1200", precio: 100 },
-  { componente: "Motherboard MZI", precio: 30 },
-  { componente: "HDD Toyiva", precio: 90 },
-  { componente: "HDD Wezter Dishital", precio: 75 },
-  { componente: "RAM Quinston", precio: 110 },
-  { componente: "RAM Quinston Fury", precio: 230 },
+const articulos= [
+  { item: "Monitor GPRS 3000", precio: 200 },
+  { item: "Motherboard ASUS 1500", precio: 120 },
+  { item: "Monitor ASC 543", precio: 250 },
+  { item: "Motherboard ASUS 1200", precio: 100 },
+  { item: "Motherboard MZI", precio: 30 },
+  { item: "HDD Toyiva", precio: 90 },
+  { item: "HDD Wezter Dishital", precio: 75 },
+  { item: "RAM Quinston", precio: 110 },
+  { item: "RAM Quinston Fury", precio: 230 },
 ]
 
 const sucursales= ["Centro", "Caballito"]
@@ -64,14 +64,23 @@ const sucursales= ["Centro", "Caballito"]
   console.log(precioMaquina(['Monitor GPRS 3000', 'Motherboard ASUS 1500'])); // 320 ($200 del monitor + $120 del motherboard)
   ```
 */
+// const precioComponente = (articulo) => componentes.find(componente=> componente.item == articulo).precio;
+
+
+
 const precioComponente = (articulo) =>{
-  for(const componente of componentes){
-    if(componente.componente === articulo){
+  for (const componente of articulos) {
+    if(articulo == componente.item){
       return componente.precio
     }
   }
 }
-// console.log(precioComponente('Monitor GPRS 3000'))
+
+// const precioComponente = (articulo) =>{
+//   const aux = componentes.find(componente=> componente.item == articulo);
+//   return aux.precio
+// }
+console.log(precioComponente('Monitor GPRS 3000'))
 console.log(precioComponente("HDD Toyiva"))
 
 
@@ -88,11 +97,10 @@ console.log(precioComponente("HDD Toyiva"))
 //   console.log(acumulador)
 
 const precioMaquina = (componentes) =>{
-  let acumulador = 0;
-  for(const componete of componentes){
-    acumulador += precioComponente(componete)
+  let total = 0;
+  for (const articulo of articulos) {
+    
   }
-  return acumulador
 }
 
 
@@ -111,23 +119,3 @@ console.log(precioMaquina(['Monitor GPRS 3000', 'Motherboard ASUS 1500']));
 
 // }
 
-
-// Sam y Frodo
-
-// Crear un programa que permita saber si Sam y Frodo están juntos. El programa debe permitir ingresar nombres separados por espacios, y mostrar con un mensaje si Sam se encuentra al lado de Frodo, ya sea antes o después. Ejemplo:
-// Ingresar nombres: Sam Frodo Legolas
-// Sam y Frodo están juntos, ¡Frodo está a salvo!
-
-// Ingresar nombres: Sam Orco Frodo
-// Sam y Frodo están separados, ¡Frodo está en peligro!
-
-const nombres =["Sam","Frodo","Legolas"]
-// const nombres1 =["Sam","Orco","Frodo"]
-let anterior = "";
-for(const nombre of nombres){
-  if(anterior == "Sam" && nombre == "Frodo"){
-    console.log("Sam y Frodo están juntos, ¡Frodo está a salvo!")
-  }
-  anterior = nombre
-}
-console.log("¡Frodo está en peligro!")
