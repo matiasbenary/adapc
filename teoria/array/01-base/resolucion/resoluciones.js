@@ -572,12 +572,7 @@ const girarMatriz = (matrix) =>{
 const tieneBloqueVertical = (matrix) =>{
   const matrixGirada = girarMatriz(matrix)
   console.log({matrix,matrixGirada});
-
-  for (const array of matrixGirada) {
-    if(tieneBloque(array)) {
-      return true
-    }
-  }
+  return tieneBloqueHorizontal(matrixGirada)
 
 }
 console.log(tieneBloqueVertical([

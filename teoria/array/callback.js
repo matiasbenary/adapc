@@ -118,3 +118,70 @@ const mesaImpuestos1 = ventas
   .map((mesa) => mesa.precio * 1.21);
 
 console.log(mesaImpuestos); //[26*1.21, 31*1.21]
+
+const numeros = [12,31,45,87,09,52,14,15,33];
+
+console.log(numeros.some(numero =>{
+  return numero >= 100
+}))
+console.log(numeros.some(numero =>{
+  return numero%2 == 0
+}))
+
+console.log(numeros.every(numero =>{
+  return numero <= 100
+}))
+console.log(numeros.every(numero =>{
+  return numero%2 == 0
+}))
+
+console.log(numeros.sort())
+console.log(nombres.sort())
+console.log(numeros.sort((a,b)=>{
+  return b-a
+}))
+console.log(ventas.sort((a,b)=>{
+  return b.precio-a.precio
+}))
+
+// const numeros = [12,31,45,87,09,52,14,15,33];
+let acumulador = 0;
+for (const numero of numeros) {
+  acumulador += numero
+}
+console.log(acumulador);
+console.log(numeros);
+
+console.log(numeros.reduce((acc,numero)=>{
+  return acc+numero
+},0));
+
+
+const acumulador1 = [];
+for (const numero of numeros) {
+  if(numero%2 == 0){
+    acumulador1.push(numero)
+  }
+}
+console.log(acumulador1);
+
+
+console.log(numeros.reduce((acc,numero)=>{
+  console.log({acc,numero});
+  // acc = []
+   //acc = [12]
+   //acc = [12]
+   //acc = [12,32]
+  //12
+  //15
+  //32
+  //55
+  if(numero%2 == 0){
+    //acc = [12]
+    //acc = [12,32]
+    acc.push(numero)
+  }
+   //acc = [12]
+   //acc = [12,32]
+  return acc
+},[]));
