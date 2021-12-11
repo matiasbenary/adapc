@@ -4794,3 +4794,78 @@ const cantidadDeArtistasPorGenero2 = (artistas) =>
   }, {});
 
 console.log(cantidadDeArtistasPorGenero2(artistas));
+
+/*
+2. `artistasPorEdad`, que tome un parámetro "edad" y un array de artistas y devuelva un array con les artistas que tengan dicha edad
+*/
+const artistasPorEdad = (edadDeaseada, artistas) =>
+  artistas.filter(({ edad }) => edad == edadDeaseada);
+
+console.log(artistasPorEdad(36, artistas));
+/*
+cantidadDeArtistasPorInstrumento, que tome por parámetro un array de artistas y devuelva un objeto donde cada "instrumento" es una propiedad y su valor la cantidad de artistas que tocan dicho instrumento
+{
+  bateria:10,
+  guitarra:15
+  bajo:12
+}
+*/
+
+/*
+1.Primero ver artistia por artista
+2.Deberia fijarme que instrumento tocan
+3.Si no lo tengo anotado lo agrego
+4.Si lo tengo agregado lo sumo
+0. Crear una variable instrumentos que acumule los resultados
+1. forEach
+2. if la condicion es si intrumeto existe
+3. Para preguntar si existe podemos usar un find - undefined
+*/
+
+const cantidadDeArtistasPorInstrumento = (artistas)=>{
+  const instrumentos = {};
+  artistas.forEach(({instrumento})=>{
+    if(instrumentos[instrumento] == undefined){
+      instrumentos[instrumento] = 1
+    }else{
+      instrumentos[instrumento]++
+    }
+  })
+  return instrumentos
+}
+
+const cantidadDeArtistasPorInstrumentoR = (artistas)=>{
+  return artistas.reduce((instrumentos,{instrumento})=>{
+    if(instrumentos[instrumento] == undefined){
+      instrumentos[instrumento] = 1
+    }else{
+      instrumentos[instrumento]++
+    }
+    return instrumentos
+  },{})
+}
+
+
+
+console.log(cantidadDeArtistasPorInstrumento(artistas));
+console.log(cantidadDeArtistasPorInstrumentoR(artistas));
+
+// let key = "nombre"
+// const prueba = {nombre:"Matias",amigos:"Chubaca"}
+
+// console.log(prueba[key]);
+// console.log(prueba["nombre"]);
+// console.log(prueba.nombre);
+
+// key = "edad"
+
+// console.log(prueba[key]);
+// console.log(prueba.edad);
+
+// key = "amigos"
+
+// console.log(prueba[key]);
+// console.log(prueba.amigos);
+// for (const keyp in prueba) {
+//   console.log(prueba[keyp],keyp);
+// }
