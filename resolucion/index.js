@@ -41,13 +41,39 @@ const ventas = [
     sucursal: 'Caballito',
     componentes: [
       'Monitor GPRS 3000',
-      'Motherboard ASUS 1200',
-      'Monitor GPRS 3000',
-      'Motherboard ASUS 1500',
+      'Motherboard ASUS 1200'
     ],
   },
 ];
 
+
+const ventasE = [
+  // tener en cuenta que Date guarda los meses del 0 (enero) al 11 (diciembre)
+  {
+    id: 1,
+    fecha: new Date(2019, 1, 4),
+    nombreVendedora: 'Grace',
+    sucursal: 'Centro',
+    componentes: ['Monitor GPRS 3000', 'Motherboard ASUS 1500'],
+  },
+  {
+    id: 3,
+    fecha: new Date(2019, 0, 2),
+    nombreVendedora: 'Grace',
+    sucursal: 'Caballito',
+    componentes: ['Monitor ASC 543', 'Motherboard MZI'],
+  },
+  {
+    id: 5,
+    fecha: new Date(2019, 0, 12),
+    nombreVendedora: 'Grace',
+    sucursal: 'Caballito',
+    componentes: [
+      'Monitor GPRS 3000',
+      'Motherboard ASUS 1200'
+    ],
+  },
+];
 const articulos = [
   { item: 'Monitor GPRS 3000', precio: 200 },
   { item: 'Motherboard ASUS 1500', precio: 120 },
@@ -102,7 +128,7 @@ const precioMaquina = (componentes) => {
 };
 
 console.log(precioMaquina(['Monitor GPRS 3000', 'Motherboard ASUS 1500'])); // 320
-
+console.log(precioMaquina(['Monitor GPRS 3000', 'Motherboard ASUS 1500']));
 // - **cantidadVentasComponente(componente)**: recibe un componente y devuelve la cantidad de veces que fue vendido, o sea que formó parte de una máquina que se vendió. La lista de ventas no se pasa por parámetro, se asume que está identificada por la variable `ventas`.
 
 //   ```js
@@ -155,7 +181,125 @@ const ventasPorFecha = (mes, anio) => {
   return ventas.filter((venta) => (mes - 1) == venta.fecha.getMonth() && anio == venta.fecha.getFullYear());
 };
 console.log(ventasPorFecha(2, 2019));
+console.log(ventasPorFecha(2, 2020));
+console.log(ventasPorFecha(1, 2019));
 
-const vendedoraDelMes = (mes, anio) => {};
+const ventasPorFecha1 = (mes, anio) => {
+  const ventasFiltradas = [];
+  for (const venta of ventas) {
+    if((mes - 1) == venta.fecha.getMonth() && anio == venta.fecha.getFullYear()){
+      ventasFiltradas.push(venta)
+    }
+  }
+  return ventasFiltradas
+};
+console.log(ventasPorFecha1(2, 2019));
+console.log(ventasPorFecha1(2, 2020));
+console.log(ventasPorFecha1(1, 2019));
 
+// {
+  // id: 1,
+  // fecha: new Date(2019, 1, 4),
+  // nombreVendedora: 'Grace',
+  // sucursal: 'Centro',
+  // componentes: ['Monitor GPRS 3000', 'Motherboard ASUS 1500'],
+// }
+const vendedoraDelMes = (mes, anio) => {
+  // primer usar ventasFiltradas 
+
+  const ventasDelMes = ventasPorFecha(mes,anio);
+  
+  // segundo generamos un objeto nuevo que sea nombre=>totalVendido
+  const ventasPorVendedora = {}
+  for (const venta of ventasDelMes) {
+    if(ventasPorVendedora[venta.nombreVendedora] == undefined){
+      ventasPorVendedora[venta.nombreVendedora] = precioMaquina(venta.componentes)
+    }else{
+      ventasPorVendedora[venta.nombreVendedora] += precioMaquina(venta.componentes)
+    }
+  }
+
+
+  console.log(ventasPorVendedora);
+
+  //tercer me quedo con la vendedora que mas ingreso genero
+  let vendedoraNombre = ""
+  let vendedoraPrecio = 0
+  for (const indice in ventasPorVendedora) {
+
+      if(vendedoraPrecio <= ventasPorVendedora[indice]){
+        vendedoraPrecio= ventasPorVendedora[indice]
+        vendedoraNombre= indice
+      }
+
+  }
+
+  console.log(vendedoraPrecio);
+  console.log(vendedoraNombre);
+  return vendedoraNombre;
+};
+
+
+const test= {nombre:"Matias",edad:26}
+const indice = "edad"
+console.log(test.nombre);
+console.log(test["nombre"]);
+console.log(test[indice]);
+
+
+console.log(test["Ada"]);
+test["Ada"]="test"
+console.log(test["Ada"]);
 console.log(vendedoraDelMes(1, 2019));
+
+
+/*- 
+
+**ventasMes(mes, anio)**: Obtener las ventas de un mes. El mes es un número entero que va desde el 1 (enero) hasta el 12 (diciembre).
+
+  ```js
+  console.log(ventasMes(1, 2019)); // 1250
+  ```
+  */
+ const ventasTotales = (ventasASumar)=> {
+  let ventasAux = 0;
+  for (const venta of ventasASumar) {
+    ventasAux += precioMaquina(venta.componentes)
+  }
+  return ventasAux
+}
+
+const ventasMes = (mes, anio) => {
+  const ventasDelMes = ventasPorFecha(mes, anio);
+  return ventasTotales(ventasDelMes);
+}
+
+console.log(ventasMes(1, 2019)); // 1250
+
+/*
+- **ventasVendedora(nombre)**: Obtener las ventas totales realizadas por una vendedora sin límite de fecha.
+*/
+
+const ventasVendedora = (nombre) => {
+  const ventasVendedora = ventas.filter(venta => {
+    return venta.nombreVendedora == nombre 
+  })
+  return ventasTotales(ventasVendedora)
+} 
+console.log(ventasVendedora('Grace')); // 900
+
+
+
+// const numeros = [12,31,45,87,09,52,14,15,33]
+
+// for (const pepe of numeros) {
+  
+// }
+
+// console.log(ventas);
+// console.log(ventas.filter(
+//   (pepe)=>{
+//     console.log(pepe.sucursal);
+//     return pepe.sucursal == "Caballito"
+//   }));
+
