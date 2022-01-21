@@ -303,3 +303,17 @@ console.log(ventasVendedora('Grace')); // 900
 //     return pepe.sucursal == "Caballito"
 //   }));
 
+const numeros = [12,31,45,87,09,52,14,15,33];
+
+console.log(numeros.filter((numero)=> numero>=15))
+
+
+const filterArray = (array,callback) => {
+  const aux = [];
+  for (const item of array) {
+    if(callback()){
+      aux.push(item)
+    }
+  }
+  return aux;
+}

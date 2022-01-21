@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="box">
+        Hay <span id="infoCartel">1</span> personas registradas
+      </div>
+      <button class="button js-modal-trigger" data-target="modal-create">
+        Agregar Modal
+      </button>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Fecha de nacimiento</th>
+            <th>Estado civil</th>
+            <th>Preferencias</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaPersona">
+          <tr>
+            <td>Matias</td>
+            <td>13/01/1995</td>
+            <td>Solter@</td>
+            <td>Programar,Natacion</td>
+            <td>
+              <button class="button is-warning">Editar</button>
+              <button class="button is-danger">Borrar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Crear Modal -->
+    <div id="modal-create" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+          <div class="field">
+            <label class="label">Nombre</label>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                placeholder="ingrese el nombre"
+                id="crearNombre"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Fecha de nacimiento</label>
+            <div class="control">
+              <input
+                class="input"
+                type="date"
+                placeholder="ingrese la fecha de nacimiento"
+                id="crearFecha"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Estado civil</label>
+            <div class="control is-expanded">
+              <div class="select is-fullwidth">
+                <select name="estadoCivil" id="crearEstadoCivil">
+                  <option value="solter@">solter@</option>
+                  <option value="casad@">casad@</option>
+                  <option value="divoridad@">divoridad@</option>
+                  <option value="viud@">viud@</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field mb-6">
+            <label class="label">Preferencias</label>
+            <div class="control is-expanded">
+              <div class="select is-fullwidth is-multiple">
+                <select
+                  class="is-block is-multiple"
+                  name="preferencias"
+                  multiple
+                  id="crearPreferencias"
+                  size="6"
+                >
+                  <option value="Programar">Programar</option>
+                  <option value="Natacion">Natacion</option>
+                  <option value="Cantar">Cantar</option>
+                  <option value="Pintar">Pintar</option>
+                  <option value="Bailar">Bailar</option>
+                  <option value="Enseñar">Enseñar</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="button is-primary" id="crearPersona"> Guardar </a>
+            </p>
+            <p class="control">
+              <a class="button is-light"> Cancelar </a>
+            </p>
+          </div>
+        </div>
+
+        <button class="modal-close is-large" aria-label="close"></button>
+      </div>
+    </div>
+
+    <!-- Editar Modal -->
+    <div id="modal-edit" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+          <div class="field">
+            <label class="label">Nombre</label>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                placeholder="ingrese el nombre"
+                id="editNombre"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Fecha de nacimiento</label>
+            <div class="control">
+              <input
+                class="input"
+                type="date"
+                placeholder="ingrese la fecha de nacimiento"
+                id="editFecha"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Estado civil</label>
+            <div class="control is-expanded">
+              <div class="select is-fullwidth">
+                <select name="estadoCivil" id="editEstadoCivil">
+                  <option value="solter@">solter@</option>
+                  <option value="casad@">casad@</option>
+                  <option value="divoridad@">divoridad@</option>
+                  <option value="viud@">viud@</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field mb-6">
+            <label class="label">Preferencias</label>
+            <div class="control is-expanded">
+              <div class="select is-fullwidth is-multiple">
+                <select
+                  class="is-multiple"
+                  name="preferencias"
+                  multiple
+                  id="editPreferencias"
+                  size="6"
+                >
+                  <option value="Programar" id="testSelected">Programar</option>
+                  <option value="Nadar">Nadar</option>
+                  <option value="Cantar">Cantar</option>
+                  <option value="Pintar">Pintar</option>
+                  <option value="Bailar">Bailar</option>
+                  <option value="Enseñar">Enseñar</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" class="hidden" id="editId" />
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="button is-primary" id="editPersona"> Guardar </a>
+            </p>
+            <p class="control">
+              <a class="button is-light"> Cancelar </a>
+            </p>
+          </div>
+        </div>
+
+        <button class="modal-close is-large" aria-label="close"></button>
+      </div>
+    </div>
+    <!-- Delete Modal -->
+    <div id="modal-delete" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2>Desae borrar el usuario</h2>
+          <input type="hidden" class="hidden" id="deleteId" />
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="button is-primary" id="deletePersona"> Eliminar </a>
+            </p>
+            <p class="control">
+              <a class="button is-light"> Cancelar </a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
