@@ -139,6 +139,27 @@ const getOptionSelectedMultiple = (select) => {
   return result;
 };
 
+const setOptionSelectedMultiple = (element, optionsToSelect) =>{
+  const options = element.options
+  for (const index in options) {
+    const option = options[index];
+    if(optionsToSelect.includes(option.value)){
+      option.selected = true
+    }
+  }
+}
+
+const parseDateToString = (date) =>{
+  //01/01/2022
+  // 01 -> 01
+  // 01-01-2022
+  // 15/01/2022
+  //  015 -> 15
+  const day = (`0${date.getDate()}`).slice(-2);
+  const month = (`0${date.getMonth() + 1}`).slice(-2);
+  return `${date.getFullYear()}-${month}-${day}` 
+}
+
 const parseDateToStringDom = (date) => {
   // 25 025 -> 25
   // 3 03 -> 03
@@ -164,7 +185,7 @@ const renderTablaVentas = () => {
     <td>${precioMaquina(venta.componentes)}</td>
     <td>
       <button class="button is-warning" onclick="openEditModal(${venta.id})">Editar</button>
-      <button class="button is-danger">Borrar</button>
+      <button class="button is-danger" onclick="openDeleteModal(${venta.id})">Borrar</button>
     </td>
     </tr>`;
   }
@@ -204,15 +225,51 @@ $('#crearVenta').addEventListener('click', () => {
 const openEditModal = (id) =>{
   venta = ventas.find(venta => venta.id === id);
   $('#editarNombre').value = venta.nombreVendedora;
-  // $('#crearFecha').value;
+  $('#editarFecha').value = parseDateToString(venta.fecha);
   $('#editarSucursal').value = venta.sucursal;
-  
+  setOptionSelectedMultiple($("#editarComponentes"),venta.componentes);
+  $("#editarId").value = venta.id;
   openModal($("#modal-edit"));
 }
 
+$("#editarVenta").addEventListener('click', ()=>{
+  const id = Number($("#editarId").value)
+
+  const nombreVendedora = $('#editarNombre').value;
+  const fecha = new Date($('#editarFecha').value);
+  const sucursal = $('#editarSucursal').value;
+  const componentes = getOptionSelectedMultiple($('#editarComponentes'));
+
+  const venta = {
+    id,
+    nombreVendedora,
+    fecha,
+    sucursal,
+    componentes,
+  };
+
+  const index = ventas.findIndex(venta=>venta.id==id);
+  ventas[index] = venta
+  updateDom();
+})
+
+const openDeleteModal = (id) =>{
+  $("#deleteId").value =id;
+  openModal($("#modal-delete"));
+}
+
+$("#deleteVentas").addEventListener("click",()=>{
+  const id = $('#deleteId').value;
+  const index = ventas.findIndex(venta=>venta.id==id);
+  if(index != -1){
+    ventas.splice(index, 1);
+  }
+})
 
 const init = () => {
   updateDom();
 };
 
 init();
+
+
